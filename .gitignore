@@ -1,0 +1,57 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+.venv*/
+env/
+env*/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled files & build output
+build/
+dist/
+*.egg-info/
+*.egg
+*.log
+
+# SQLite DBs (if any)
+*.sqlite3
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Python lint/mypy/pytest/cache
+.mypy_cache/
+.pytest_cache/
+.coverage
+.tox/
+.cache/
+coverage.xml
+htmlcov/
+
+# Jupyter / notebook (optional)
+*.ipynb
+.ipynb_checkpoints/
+
+# VSCode test/watch config
+.vscode-test/
+.vscode-watch/
