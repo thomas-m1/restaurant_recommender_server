@@ -1,36 +1,41 @@
-from pydantic import BaseModel
-from typing import List, Optional
 
-class Restaurant(BaseModel):
+from pydantic import BaseModel
+from typing import List, Optional, Dict
+from app.schemas.recommendation import RecommendationOut
+
+
+class RestaurantOut(BaseModel):
     id: str
     name: str
-    rating: float
-    price: Optional[str]
-    location: str
-    image_url: Optional[str]
-    photos: Optional[List[str]] = []
     categories: List[str]
-    distance: Optional[float]
+    price: Optional[str]
+    rating: float
+    review_count: int
+    address: str
+    latitude: float
+    longitude: float
+    distance_from_office_km: float
     phone: Optional[str]
+    image_url: Optional[str]
+    url: Optional[str]
+    is_closed: bool
+    scenario_tags: List[str]
+
+    # Premium / enriched fields
     website: Optional[str]
-    yelp_url: Optional[str]
-    tags: List[str] = []
-    hours: Optional[List[str]] = []
-    reservation: Optional[bool] = False
-    accepts_credit_cards: Optional[bool] = False
-    ambience: Optional[str]
-    liked_by: Optional[List[str]] = []
+    accepts_credit_cards: Optional[bool]
+    alcohol: Optional[str]
+    ambience: Optional[Dict[str, Optional[bool]]]
+    good_for_meal: Optional[Dict[str, Optional[bool]]]
     noise_level: Optional[str]
-    parking: Optional[str]
+    attire: Optional[str]
+    good_for_groups: Optional[bool]
     outdoor_seating: Optional[bool]
-    display_tags: List[str] = []
+    business_hours: Optional[List[Dict]]
+    recommendations: Optional[List[RecommendationOut]]
 
 
     class Config:
         orm_mode = True
 
-class PaginatedRestaurants(BaseModel):
-    total: int
-    page: int
-    per_page: int
-    results: List[Restaurant]
+

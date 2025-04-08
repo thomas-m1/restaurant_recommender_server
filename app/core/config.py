@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     YELP_API_KEY: str
     YELP_BASE_URL: str
 
+    DATABASE_URL: str
+
     OFFICE_LAT: float = 43.670116
     OFFICE_LNG: float = -79.385757
 

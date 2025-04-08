@@ -4,8 +4,6 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.cors import CORSMiddleware
 import logging
-from app.core.deps import ResourceContainer, set_resources, get_resources
-from app.services.yelp_client import YelpClient
 from app.core.config import settings, ENV_FILE_USED
 
 
@@ -30,15 +28,12 @@ def init_app(app: FastAPI):
         logger.info(f"ENV: {settings.ENV}")
         logger.info(f"VERSION: {settings.APP_VERSION}")
         logger.info(f"ALLOWED_ORIGINS: {settings.ALLOWED_ORIGINS}")
-        resources = ResourceContainer()
-        resources.yelp_client = YelpClient()
-        set_resources(resources)
+
 
     @app.on_event("shutdown")
     async def on_shutdown():
         logger.info("App shutdown")
-        if resources and resources.yelp_client:
-            await resources.yelp_client.close()
+
 
     # Error Handling
     @app.exception_handler(StarletteHTTPException)
