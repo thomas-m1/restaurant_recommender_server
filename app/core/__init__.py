@@ -33,19 +33,3 @@ def init_app(app: FastAPI):
     @app.on_event("shutdown")
     async def on_shutdown():
         logger.info("App shutdown")
-
-
-    # Error Handling
-    @app.exception_handler(StarletteHTTPException)
-    async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
-        return JSONResponse(
-            status_code=exc.status_code,
-            content={"error": exc.detail, "type": "HTTPException"},
-        )
-
-    @app.exception_handler(RequestValidationError)
-    async def validation_exception_handler(request: Request, exc: RequestValidationError):
-        return JSONResponse(
-            status_code=422,
-            content={"error": exc.errors(), "type": "ValidationError"},
-        )
