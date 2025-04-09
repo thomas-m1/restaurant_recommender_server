@@ -18,14 +18,7 @@ class Settings(BaseSettings):
     OFFICE_LAT: float = 43.670116
     OFFICE_LNG: float = -79.385757
 
-    ALLOWED_ORIGINS: List[AnyHttpUrl] = []
-
-    @field_validator("ALLOWED_ORIGINS", mode="before")
-    @classmethod
-    def split_origins(cls, value):
-        if isinstance(value, str):
-            return [origin.strip().strip('"') for origin in value.strip("[]").split(",")]
-        return value
+    ALLOWED_ORIGINS: List[str] = []
 
     class Config:
         env_file = env_file
