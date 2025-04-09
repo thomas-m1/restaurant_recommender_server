@@ -14,6 +14,9 @@ router = APIRouter(
     tags=["Recommendations"]
 )
 
+#this functionality can get extended.
+# ie each user will have a list of likes/comments they made and and can
+# update their suggestions using a put operation
 @router.post(
     "/",
     response_model=RecommendationOut,
@@ -33,6 +36,7 @@ def create_recommendation(
 
 
 #optional to get restaurants recommended by a user - could implement with auth
+# can also extend to get all of a users likes and comments
 @router.get(
     "/",
     response_model=List[RecommendationOut],

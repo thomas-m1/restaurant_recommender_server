@@ -1,11 +1,14 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
 from typing import List, Optional
 
 from app.schemas.restaurant import RestaurantOut
-from app.schemas.pagination import PaginatedResponse  # ✅ import this
+from app.schemas.pagination import PaginatedResponse
 from app.core.deps import get_db
 from app.services.restaurant_service import fetch_filtered_restaurants
+from app.schemas.enums import SortByEnum, PriceEnum, MealTagEnum
+
+from app.core.rate_limiter import limiter
 
 router = APIRouter(
     prefix="/restaurants",
@@ -28,12 +31,12 @@ def get_restaurants(
     limit: int = 12,
     scenario_tag: Optional[str] = Query(None),
     categories: Optional[List[str]] = Query(None),
-    price: Optional[List[str]] = Query(None),
-    sort_by: str = Query("best_match", enum=["best_match", "highest_rated", "popularity", "distance"]),
+    price: Optional[List[PriceEnum]] = Query(None),
+    sort_by: SortByEnum = Query(SortByEnum.best_match),
     outdoor_seating: Optional[bool] = Query(None),
     good_for_groups: Optional[bool] = Query(None),
     max_distance_km: Optional[float] = Query(None),
-    good_for_meal: Optional[List[str]] = Query(None),
+    good_for_meal: Optional[List[MealTagEnum]] = Query(None),
 ):
     return fetch_filtered_restaurants(
         db=db,

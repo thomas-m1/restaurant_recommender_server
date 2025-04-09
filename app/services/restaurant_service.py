@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session, selectinload
-from sqlalchemy import func, text, or_
+from sqlalchemy import func, text, or_, cast, Boolean, String
 
 from app.models.business import Business
 from app.utils.filters import case_insensitive_json_array_filter
@@ -34,9 +34,10 @@ def fetch_filtered_restaurants(
         sql_clause = case_insensitive_json_array_filter("scenario_tags", scenario_tag)
         query = query.filter(text(sql_clause))
 
+
     if good_for_meal:
         meal_clauses = [
-            text(f"(good_for_meal ->> '{tag}')::boolean = true") for tag in good_for_meal
+            text(f"(good_for_meal ->> '{tag.value}')::boolean = true") for tag in good_for_meal
         ]
         query = query.filter(or_(*meal_clauses))
 

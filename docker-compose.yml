@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:15
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: bain_user
+      POSTGRES_PASSWORD: bain_password
+      POSTGRES_DB: restaurant_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+    container_name: fastapi_app
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres_data:
