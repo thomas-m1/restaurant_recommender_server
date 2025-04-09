@@ -38,6 +38,7 @@ app = FastAPI(
     docs_url="/docs" if settings.ENV == "development" else None,
     redoc_url=None,
     openapi_url="/openapi.json" if settings.ENV == "development" else None,
+    root_path="/",
 )
 
 # Register rate limit handler
