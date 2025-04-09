@@ -27,18 +27,18 @@ When you run the bain_restaurant_recommender_batch, it will create a businesses 
 You still need to create the recommendations table.<br>
 In your postgres, run the following command to create the table:<br>
 
-CREATE TABLE recommendations (
-    id VARCHAR PRIMARY KEY,
-    business_id TEXT NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
-    user_email TEXT,
-    suggest BOOLEAN NOT NULL,
-    note TEXT
+CREATE TABLE recommendations (<br>
+    id VARCHAR PRIMARY KEY,<br>
+    business_id TEXT NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,<br>
+    user_email TEXT,<br>
+    suggest BOOLEAN NOT NULL,<br>
+    note TEXT<br>
 );<br>
 
 or run the alembic script and it will create the table for you
 
 
-# 4. .env.dev
+### 5. .env.dev
 ENV=development<br>
 APP_VERSION=1.0.0<br>
 DATABASE_URL="insert db url"<br>
@@ -46,6 +46,6 @@ ALLOWED_ORIGINS=["http://localhost:3000"]<br>
 OFFICE_LAT="insert office latitude"<br>
 OFFICE_LNG="insert office longitude"<br>
 
-### 5. Run the Server
+### 6. Run the Server
 uvicorn app.main:app --reload<br>
 Open your browser to: http://localhost:8000/docs
