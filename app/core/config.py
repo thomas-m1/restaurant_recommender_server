@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 from typing import List
-from pydantic import AnyHttpUrl, field_validator
 
 # Load environment file based on ENV_PATH or default to .env.dev
 env_file = os.getenv("ENV_PATH", ".env.dev")
@@ -18,7 +17,7 @@ class Settings(BaseSettings):
     OFFICE_LAT: float = 43.670116
     OFFICE_LNG: float = -79.385757
 
-    ALLOWED_ORIGINS: List[str] = ["*"]
+    ALLOWED_ORIGINS: List[str] = []
 
     class Config:
         env_file = env_file
