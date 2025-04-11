@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     OFFICE_LAT: float = 43.670116
     OFFICE_LNG: float = -79.385757
 
+    GOOGLE_MAPS_API_KEY: str
+
     ALLOWED_ORIGINS: List[str] = []
 
     class Config:
