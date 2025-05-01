@@ -48,4 +48,7 @@ OFFICE_LNG="insert office longitude"<br>
 
 ### 6. Run the Server
 uvicorn app.main:app --reload<br>
-Open your browser to: http://localhost:8000/docs
+Open your browser to: http://localhost:8000/docs<br>
+
+
+Notes: some features don't offer free api. uploaded that version in separate branch
