@@ -19,7 +19,7 @@ router = APIRouter(
     "/",
     response_model=PaginatedResponse[RestaurantOut],
     summary="Get filtered restaurants",
-    description="Fetch restaurants using filters like cuisine, price, occasion tags, distance from office, and other partner-specific preferences.",
+    description="Fetch restaurants using filters like cuisine, price, occasion tags, distance from office, and other dining preferences.",
     responses={
         200: {"description": "Restaurants successfully retrieved"},
         400: {"description": "Invalid query parameters"},

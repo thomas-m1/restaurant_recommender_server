@@ -5,7 +5,7 @@
 #     build:
 #       context: .
 #       dockerfile: Dockerfile
-#     container_name: bain_backend_prod
+#     container_name: restaurant_backend_prod
 #     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 #     ports:
 #       - "8000:8000"
@@ -22,7 +22,7 @@
 #     environment:
 #       POSTGRES_USER: postgres
 #       POSTGRES_PASSWORD: postgres
-#       POSTGRES_DB: bain_db
+#       POSTGRES_DB: restaurant_db
 #     ports:
 #       - "5432:5432"
 #     volumes:

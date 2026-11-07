@@ -14,8 +14,8 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
 
-    OFFICE_LAT: float = 43.670116
-    OFFICE_LNG: float = -79.385757
+    OFFICE_LAT: float = 43.6534
+    OFFICE_LNG: float = -79.3841
 
     GOOGLE_MAPS_API_KEY: str
 

@@ -5,8 +5,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: bain_user
-      POSTGRES_PASSWORD: bain_password
+      POSTGRES_USER: restaurant_user
+      POSTGRES_PASSWORD: restaurant_password
       POSTGRES_DB: restaurant_db
     volumes:
       - postgres_data:/var/lib/postgresql/data

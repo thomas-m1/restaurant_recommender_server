@@ -21,7 +21,7 @@ router = APIRouter(
     "/",
     response_model=RecommendationOut,
     summary="Submit a recommendation",
-    description="Create a new partner recommendation (like or dislike) for a specific restaurant, with an optional comment.",
+    description="Create a new community recommendation (like or dislike) for a specific restaurant, with an optional comment.",
     responses={
         201: {"description": "Recommendation created successfully"},
         404: {"description": "Business not found"},
@@ -41,7 +41,7 @@ def create_recommendation(
     "/",
     response_model=List[RecommendationOut],
     summary="Get recommendations",
-    description="Retrieve all partner recommendations by either `business_id` or `user_email`.",
+    description="Retrieve all community recommendations by either `business_id` or `user_email`.",
     responses={
         200: {"description": "Successfully retrieved recommendations"},
         400: {"description": "Must provide either business_id or user_email"},

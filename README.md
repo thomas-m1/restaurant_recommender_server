@@ -1,51 +1,53 @@
-# restaurant_recommender_server
-Server for Bain Restaurant recommender MVP
+# Restaurant Recommender — API
 
+A FastAPI backend for discovering Toronto restaurants by cuisine, occasion, price, and distance. It serves restaurant data and community recommendations to the [React client](https://github.com/thomas-m1/restaurant_recommender_client).
 
-A FastAPI backend for recommending curated restaurants near Bain & Company’s Toronto office. This tool is designed to help partners quickly find client-appropriate venues using smart filters, internal recommendations, and distance-aware logic.
+## Stack
 
+Python, FastAPI, SQLAlchemy, PostgreSQL, and Alembic.
 
+## Local development
 
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Local Development Setup
-### 1. Clone the Repository
-git clone "repositoryurl"<br>
-cd "repository"<br>
+Create a `.env.dev` file with your local settings:
 
-### 2. Create a Virtual Environment
-python3 -m venv venv<br>
-source venv/bin/activate<br>
-### 3. Install Dependencies
-pip install --upgrade pip<br>
-pip install -r requirements.txt<br>
+```dotenv
+ENV=development
+APP_VERSION=1.0.0
+DATABASE_URL=postgresql://restaurant_user:restaurant_password@localhost:5432/restaurant_db
+ALLOWED_ORIGINS=["http://localhost:3000"]
+OFFICE_LAT=43.6534
+OFFICE_LNG=-79.3841
+GOOGLE_MAPS_API_KEY=
+```
 
+The `OFFICE_LAT` and `OFFICE_LNG` setting names are retained for compatibility; the default origin is Toronto City Hall. Supply a Google Maps key to use integrations that require it. Keep credentials out of version control.
 
-### 4. Set up Database
-in your postgres, create a db and add the link to you .env variables<br>
-When you run the restaurant_recommender_batch, it will create a businesses table.<br>
+Start PostgreSQL using your own installation, or start the database service from the included Compose configuration:
 
-You still need to create the recommendations table.<br>
-In your postgres, run the following command to create the table:<br>
+```sh
+docker compose up -d db
+```
 
-CREATE TABLE recommendations (<br>
-    id VARCHAR PRIMARY KEY,<br>
-    business_id TEXT NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,<br>
-    user_email TEXT,<br>
-    suggest BOOLEAN NOT NULL,<br>
-    note TEXT<br>
-);<br>
+Initialize the `businesses` table using the [batch importer](https://github.com/thomas-m1/restaurant_recommender_batch) against the same database, then apply the recommendation migrations:
 
-or run the alembic script and it will create the table for you
+```sh
+alembic upgrade head
+uvicorn app.main:app --reload
+```
 
+The API runs on port 8000. Interactive documentation is available at `/docs` in development.
 
-### 5. .env.dev
-ENV=development<br>
-APP_VERSION=1.0.0<br>
-DATABASE_URL="insert db url"<br>
-ALLOWED_ORIGINS=["http://localhost:3000"]<br>
-OFFICE_LAT="insert office latitude"<br>
-OFFICE_LNG="insert office longitude"<br>
+## Endpoints
 
-### 6. Run the Server
-uvicorn app.main:app --reload<br>
-Open your browser to: http://localhost:8000/docs<br>
+- `GET /api/v1/health` — database connectivity
+- `GET /api/v1/restaurants/` — paginated restaurant search and filters
+- `POST /api/v1/recommendations/` — add a recommendation
+- `GET /api/v1/recommendations/` — retrieve recommendations by restaurant or email
+
+Restaurant distances are calculated during batch ingestion. Reingest existing data after changing the importer's reference coordinates.

@@ -23,7 +23,7 @@ tags_metadata = [
     },
     {
         "name": "Recommendations",
-        "description": "Endpoints to submit and retrieve partner recommendations for restaurants.",
+        "description": "Endpoints to submit and retrieve community recommendations for restaurants.",
     },
 ]
 
@@ -31,9 +31,9 @@ tags_metadata = [
 settings = get_settings()
 
 app = FastAPI(
-    title="Bain Restaurant Recommender",
+    title="Restaurant Recommender",
     version=settings.APP_VERSION,
-    description="MVP for Bain Partners to find client-appropriate restaurants",
+    description="Discover restaurants by cuisine, occasion, distance, and community recommendations",
     openapi_tags=tags_metadata,
     docs_url="/docs" if settings.ENV == "development" else None,
     redoc_url=None,
